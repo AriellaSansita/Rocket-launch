@@ -63,7 +63,7 @@ if launch_vehicle != "All":
 # ===============================
 # STAGE 4: DATA VISUALIZATION & ANALYSIS 
 # ===============================
-st.header("📊 Real-World Mission Data Analysis")
+st.header("Real-World Mission Data Analysis")
 
 # 1. Scatter: Payload vs Fuel (Requirement: Seaborn/Plotly) [cite: 2]
 st.subheader("1. Payload Weight vs Fuel Consumption")
@@ -111,7 +111,7 @@ st.write("**Insight:** This heatmap confirms that Fuel Consumption and Payload W
 # ===============================
 
 st.divider()
-st.header("🚀 Rocket Launch Simulation (Calculus-Based)")
+st.header("Rocket Launch Simulation (Calculus-Based)")
 st.write("This simulation applies **Newton's Second Law** using a step-by-step update to acceleration, velocity, and altitude while accounting for **mass reduction** as fuel burns. [cite: 2]")
 
 # User Inputs for Simulation
@@ -160,5 +160,3 @@ sim_results = pd.DataFrame(sim_data)
 st.subheader("Simulation Results: Altitude over Time")
 fig_sim = px.line(sim_results, x="Time (s)", y="Altitude (m)")
 st.plotly_chart(fig_sim, use_container_width=True)
-
-st.success("Analysis and Simulation Complete. Dashboard fully meets all Assessment Criteria. 🚀")
