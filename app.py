@@ -13,7 +13,7 @@ st.title("🚀 Space Rocket Mission Dashboard")
 # ===============================
 # STAGE 1: RESEARCH & GUIDING QUESTIONS 
 # ===============================
-with st.expander("Project Research & Guiding Questions (Click to Expand)"):
+with st.expander("📖 Project Research & Guiding Questions (Click to Expand)"):
     st.write("### Research Insights")
     st.write("- **Newton’s Second Law:** Rocket acceleration is determined by Net Force (Thrust - Gravity - Drag) divided by Mass.")
     st.write("- **Variable Mass:** As fuel burns, the rocket's mass decreases, which causes acceleration to increase over time even if thrust remains constant.")
@@ -51,21 +51,41 @@ df = df.dropna()
 # INTERACTIVE FILTERS
 # ===============================
 st.sidebar.header("Dashboard Filters")
+
 mission_type = st.sidebar.selectbox("Filter by Mission Type", ["All"] + list(df["Mission Type"].unique()))
 launch_vehicle = st.sidebar.selectbox("Filter by Launch Vehicle", ["All"] + list(df["Launch Vehicle"].unique()))
 
+# 1️⃣ NEW: Mission Cost Slider
+cost_range = st.sidebar.slider(
+    "Filter by Mission Cost (billion USD)",
+    float(df["Mission Cost (billion USD)"].min()),
+    float(df["Mission Cost (billion USD)"].max()),
+    (float(df["Mission Cost (billion USD)"].min()), float(df["Mission Cost (billion USD)"].max()))
+)
+
+# Apply filters
 filtered_df = df.copy()
 if mission_type != "All":
     filtered_df = filtered_df[filtered_df["Mission Type"] == mission_type]
 if launch_vehicle != "All":
     filtered_df = filtered_df[filtered_df["Launch Vehicle"] == launch_vehicle]
 
+filtered_df = filtered_df[
+    (filtered_df["Mission Cost (billion USD)"] >= cost_range[0]) & 
+    (filtered_df["Mission Cost (billion USD)"] <= cost_range[1])
+]
+
+# 2️⃣ NEW: ERROR HANDLING (Prevent app crash if no data matches)
+if filtered_df.empty:
+    st.warning("⚠️ No missions match the selected filters. Please adjust your range or categories.")
+    st.stop()
+
 # ===============================
 # STAGE 4: DATA VISUALIZATION & ANALYSIS 
 # ===============================
-st.header("Real-World Mission Data Analysis")
+st.header("📊 Real-World Mission Data Analysis")
 
-# 1. Scatter: Payload vs Fuel (Requirement: Seaborn/Plotly)
+# 1. Scatter: Payload vs Fuel
 st.subheader("1. Payload Weight vs Fuel Consumption")
 fig1 = px.scatter(filtered_df, x="Payload Weight (tons)", y="Fuel Consumption (tons)", 
                  color="Mission Success (%)", hover_name="Mission Name")
@@ -74,7 +94,7 @@ st.info("**Insight:** A strong positive correlation exists; heavier payloads con
 
 col1, col2 = st.columns(2)
 
-# 2. Bar: Cost vs Success (Requirement: Matplotlib/Plotly)
+# 2. Bar: Cost vs Success
 with col1:
     st.subheader("2. Average Cost: Success vs Failure")
     filtered_df["Status"] = np.where(filtered_df["Mission Success (%)"] >= 80, "Success", "Failure")
@@ -83,7 +103,7 @@ with col1:
     st.plotly_chart(fig2)
     st.write("**Insight:** High-cost missions are not always more successful, suggesting that resource management is as vital as budget.")
 
-# 3. Box Plot: Crew Size vs Success (Requirement: Seaborn)
+# 3. Box Plot: Crew Size vs Success
 with col2:
     st.subheader("3. Crew Size Distribution by Status")
     fig3, ax3 = plt.subplots()
@@ -99,18 +119,21 @@ fig4 = px.line(filtered_df.sort_values("Mission Duration (years)"),
 st.plotly_chart(fig4, use_container_width=True)
 st.info("**Insight:** As expected, distance from Earth is the primary driver of mission duration.")
 
-# 5. Correlation Heatmap (Requirement: Statistical Visuals)
+# 5. Correlation Heatmap
 st.subheader("5. Statistical Correlation Heatmap")
 fig5, ax5 = plt.subplots(figsize=(10, 6))
 sns.heatmap(filtered_df[numeric_columns].corr(), annot=True, cmap="coolwarm", ax=ax5)
 st.pyplot(fig5)
+# 3️⃣ NEW: STATISTICAL EXPLANATION
+st.write("**Statistical Note:** Correlation values close to +1 indicate a strong positive relationship, -1 indicates a strong negative relationship, and 0 suggests no linear relationship.")
 st.write("**Insight:** This heatmap confirms that Fuel Consumption and Payload Weight are the most tightly linked variables in the dataset.")
 
 # ===============================
 # STAGE 3: ROCKET SIMULATION (Differential Equations) 
 # ===============================
+
 st.divider()
-st.header("Rocket Launch Simulation (Calculus-Based)")
+st.header("🚀 Rocket Launch Simulation (Calculus-Based)")
 st.write("This simulation applies **Newton's Second Law** using a step-by-step update to acceleration, velocity, and altitude while accounting for **mass reduction** as fuel burns.")
 
 # User Inputs for Simulation
