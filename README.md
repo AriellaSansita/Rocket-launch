@@ -1,4 +1,14 @@
-# IDAI104(YourStudentID)-YourName
+# Candidate Name - Ariella Sansita M
+
+# Candidate Registration Number - 1000470
+
+# CRS Name: Artificial Intelligence
+
+# Course Name - Mathematics for AI
+
+# School name - Birla Open Minds International School, Kollur
+
+# Summative Assessment
 
 # 🚀 Space Rocket Mission Dashboard
 
