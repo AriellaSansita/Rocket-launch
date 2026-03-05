@@ -14,11 +14,7 @@
 
 ## Project Overview
 
-This project is an interactive Streamlit dashboard that analyzes historical space mission data and includes a calculus-based rocket launch simulation.
-
-The goal is to explore relationships between payload weight, fuel consumption, mission cost, crew size, mission duration, and mission success. In addition, a physics simulation models rocket motion using Newton’s Second Law and step-by-step numerical updates.
-
-The dashboard allows users to filter mission data and experiment with rocket parameters in real time.
+This project is an interactive Streamlit dashboard that analyzes historical space mission data and includes a calculus-based rocket launch simulation. The goal is to explore relationships between payload weight, fuel consumption, mission cost, crew size, mission duration, and mission success. In addition, a physics simulation models rocket motion using Newton’s Second Law and step-by-step numerical updates. The dashboard allows users to filter mission data and experiment with rocket parameters in real time.
 
 
 ## Problem Understanding
@@ -145,5 +141,6 @@ streamlit run app.py
 
 ## Live Application
 
-[Insert your Streamlit Cloud link here]
+https://rocket-launch-7sbol2huxgtgljnggyjcez.streamlit.app/
+
 
