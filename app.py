@@ -133,7 +133,7 @@ st.write("**Insight:** This heatmap confirms that Fuel Consumption and Payload W
 # ===============================
 
 st.divider()
-st.header("🚀 Rocket Launch Simulation (Calculus-Based)")
+st.header("🚀 Rocket Launch Simulation")
 st.write("This simulation applies **Newton's Second Law** using a step-by-step update to acceleration, velocity, and altitude while accounting for **mass reduction** as fuel burns.")
 
 # User Inputs for Simulation
